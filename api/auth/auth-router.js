@@ -1,40 +1,75 @@
-const router = require('express').Router();
+const router = require("express").Router()
+const jwt = require("jsonwebtoken")
 const bcrypt = require("bcryptjs")
-const users = require("./auth-model")
-const {validateUser, signToken, validateRegistration} = require("../middleware/api-middleware")
+const Auth = require("./auth-model")
 
+router.post("/register", async (req, res, next) => {
+	try {
+		const { username, password } = req.body
 
-router.post('/register', validateRegistration(), async (req, res, next) => {
- try{
-  
-const {username, password, phoneNumber} = req.body
-const newUser = await users.add({
-    username,
-    //here hash the password before saving it to the db with a time complexity of 14
-    password: await bcrypt.hash(password, 14),
-    phoneNumber
+		if(!username || !password){
+			return res.status(400).json({
+				message: "username and password required"
+			})
+		} else {
+			const newUser = await Auth.add({
+				username: username,
+				password: await bcrypt.hash(password, 5)
+			})
+			res.status(201).json(newUser)
+		}
+	} catch (err) {
+		next(err)
+	}
 })
 
-res.status(201).json(newUser)
+router.post("/login", async (req, res, next) => {
+	try {
+		const { username, password } = req.body
+		if(!username || !password){
+			return res.status(400).json({
+				message: "username and password required"
+			})
+		}
+		const user = await Auth.findBy({ username }).first()
+		const checkPassword = await bcrypt.compare(password, user ? user.password : "")
 
- }catch(err){
-   next(err)
- }
+		if (!user || !checkPassword){
+			return res.status(401).json({
+				message: "username or password incorrect"
+			})
+		} else {
+			const token = jwt.sign({
+				subject: user.id,
+				username: user.username
+			}, "keep it secret keep it safe", {expiresIn: "1d"})
+			
+			res.cookie("token", token)
+
+			res.status(200).json({
+				message: `Welcome back ${username}!`,
+				token: token
+			})
+		}
+		
+	} catch (err) {
+		next(err)
+	}
 })
 
-router.post('/login',validateUser(),signToken(), async (req, res) => {
-    try{
-      const {username} =req.body
-      const user = await users.findByUsername(username)
-      
-      res.status(200).json({
-          message: `Welcome ${username}!`,
-          userID: user.id,
-          token: req.token
-      }).end()
-    }catch(err) {
-      next(err)
-    }
+router.post("/logout", async (req, res, next) => {
+	try {
+		req.session.destroy((err) => {
+			if (err){
+				next(err)
+			} else {
+				res.status(204).end()
+			}
+		})
+		
+	} catch (err) {
+		next(err)
+	}
 })
 
 module.exports = router

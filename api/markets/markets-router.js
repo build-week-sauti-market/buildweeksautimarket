@@ -1,32 +1,46 @@
-const express = require("express")
-const router = express.Router()
-const plants = require("./plants-model")
-const {validatePlantID, validatePlant} = require("../middleware/api-middleware")
+const router = require("express").Router()
+const jwt = require("jsonwebtoken")
+const bcrypt = require("bcryptjs")
+const Market = require("../auth/auth-model")
 
-router.put("/:id",validatePlantID(),validatePlant(), async(req, res, next) => {
-    try{
-        
-        const updatedPlant = await plants.updatePlant(req.body, req.params.id)
-res.status(200).json(updatedPlant)
-    }catch(err){
-        next(err)
-    }
+router.get("/market", async (req, res, next) => {
+	try {
+
+	} catch (err) {
+		next(err)
+	}
 })
-router.delete("/:id",validatePlantID(), async(req, res, next) => {
-    try{
-await plants.removePlant(req.plant.id)
-res.status(204).json({
-    message: "plant was deleted"
+
+router.get("/market/:id", async (req, res, next) => {
+	try {
+
+	} catch (err) {
+		next(err)
+	}
 })
-    }catch(err){
-        next(err)
-    }
+
+router.post("/market", async (req, res, next) => {
+	try {
+
+	} catch (err) {
+		next(err)
+	}
 })
-router.get("/:id", validatePlantID(), async(req, res, next) => {
-    try{
-res.status(200).json(req.plant)
-    }catch(err){
-        next(err)
-    }
+
+router.put("/market/:id", async (req, res, next) => {
+	try {
+
+	} catch (err) {
+		next(err)
+	}
 })
+
+router.delete("/market/:id", async (req, res, next) => {
+	try {
+
+	} catch (err) {
+		next(err)
+	}
+})
+
 module.exports = router

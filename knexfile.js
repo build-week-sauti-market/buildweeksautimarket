@@ -7,7 +7,7 @@ require('dotenv').config()
   Put the above in your .env file. Some adjustments in the connection URLs will be needed:
     - 5432 (this is the default TCP port for PostgreSQL, should work as is and can be omitted)
     - postgres (in postgres:password, this is the default superadmin user, might work as is)
-    - password (in postgres:password, replace with the actual password set in pgAdmin 4)
+    - password (in postgres:password, replace wnpith the actual password set in pgAdmin 4)
     - database_name (use the real name of the development database you created in pgAdmin 4)
     - testing_database_name (use the real name of the testing database you created in pgAdmin 4)
 */
@@ -25,8 +25,26 @@ const sharedConfig = {
 
 module.exports = {
   development: {
-    ...sharedConfig,
-    connection: process.env.DEV_DATABASE_URL,
+      client: 'sqlite3',
+  migrations: { directory: './api/data/migrations' },
+  seeds: { directory: './api/data/seeds' },
+  connection: {
+    filename: "./api/data/development.db3"
+  },
+  useNullAsDefault: true,
+  pool: {
+      afterCreate: (conn, done) => {
+        conn.run("PRAGMA foreign_keys=ON", done);
+      },
+    },
+    // ...sharedConfig,
+    // connection: {
+    //   port: process.env.PG_PORT,
+    //   host: process.env.PG_HOST,
+    //   database: process.env.PG_DATABASE,
+    //   user: process.env.PG_USER,
+    //   password: process.env.PG_PASSWORD
+    // },
   },
   testing: {
     ...sharedConfig,
