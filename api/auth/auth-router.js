@@ -5,15 +5,15 @@ const Auth = require("./auth-model")
 
 router.post("/register", async (req, res, next) => {
 	try {
-		const { username, password } = req.body
+		const { user_name, password } = req.body
 
-		if(!username || !password){
+		if(!user_name || !password){
 			return res.status(400).json({
-				message: "username and password required"
+				message: "user_name and password required"
 			})
 		} else {
 			const newUser = await Auth.add({
-				username: username,
+				user_name: user_name,
 				password: await bcrypt.hash(password, 5)
 			})
 			res.status(201).json(newUser)
@@ -25,29 +25,32 @@ router.post("/register", async (req, res, next) => {
 
 router.post("/login", async (req, res, next) => {
 	try {
-		const { username, password } = req.body
-		if(!username || !password){
+		const { user_name, password } = req.body
+		console.log(req.body)
+		if(!user_name || !password){
 			return res.status(400).json({
-				message: "username and password required"
+				message: "user_name and password required"
 			})
 		}
-		const user = await Auth.findBy({ username }).first()
-		const checkPassword = await bcrypt.compare(password, user ? user.password : "")
+		const user = await Auth.findBy({ user_name }).first()
+		console.log(user)
+		const checkPassword = await bcrypt.compare(password,user.password)
+		console.log(checkPassword)
 
-		if (!user || !checkPassword){
+		if (!user){
 			return res.status(401).json({
-				message: "username or password incorrect"
+				message: "user_name or password incorrect"
 			})
 		} else {
 			const token = jwt.sign({
 				subject: user.id,
-				username: user.username
+				user_name: user.user_name
 			}, "keep it secret keep it safe", {expiresIn: "1d"})
 			
 			res.cookie("token", token)
 
 			res.status(200).json({
-				message: `Welcome back ${username}!`,
+				message: `Welcome back ${user_name}!`,
 				token: token
 			})
 		}
