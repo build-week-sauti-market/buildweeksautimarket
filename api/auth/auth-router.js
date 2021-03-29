@@ -12,9 +12,11 @@ router.post("/register", async (req, res, next) => {
 				message: "user_name and password required"
 			})
 		} else {
+			const  hashpass = await bcrypt.hash(password, 5)
 			const newUser = await Auth.add({
 				user_name: user_name,
-				password: await bcrypt.hash(password, 5)
+				password: hashpass
+
 			})
 			res.status(201).json(newUser)
 		}
