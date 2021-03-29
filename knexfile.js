@@ -52,8 +52,17 @@ module.exports = {
     connection: process.env.TESTING_DATABASE_URL,
   },
   production: {
-    ...sharedConfig,
-    connection: process.env.DATABASE_URL,
-    pool: { min: 2, max: 10 },
+    client: 'sqlite3',
+  migrations: { directory: './api/data/migrations' },
+  seeds: { directory: './api/data/seeds' },
+  connection: {
+    filename: "./api/data/development.db3"
   },
+  useNullAsDefault: true,
+  pool: {
+      afterCreate: (conn, done) => {
+        conn.run("PRAGMA foreign_keys=ON", done);
+      },
+    },
+  }
 }
