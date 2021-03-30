@@ -21,7 +21,7 @@ exports.up = function(knex) {
         .inTable("sellers")
       table.float("seller_price")
         .notNullable()
-      table.integer("qty")
+      table.integer("quantity")
         .unsigned()
         .notNullable()
       table.text("description")
