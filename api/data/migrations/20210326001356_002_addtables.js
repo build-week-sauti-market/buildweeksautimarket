@@ -1,16 +1,16 @@
 exports.up = function(knex) {
-  return knex.schema.createTable("sellers", tbl => {
-     tbl.increments()
-     tbl.text("seller_name")
+  return knex.schema.createTable("sellers", table => {
+     table.increments()
+     table.text("seller_name")
         .notNullable()
-    tbl.text("location")
+    table.text("location")
         .notNullable()
-    tbl.text("photo") 
+    table.text("photo") 
   })
 
-  .createTable("category", tbl => {
-      tbl.increments()
-      tbl.text("category_name")
+  .createTable("category", table => {
+      table.increments()
+      table.text("category_name")
   })
 };
 
