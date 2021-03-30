@@ -35,7 +35,7 @@ router.post("/login", async (req, res, next) => {
 			})
 		}
 		const user = await Auth.findBy({ user_name }).first()
-		console.log(user)
+		console.log("login",user)
 		const checkPassword = await bcrypt.compare(password,user.password)
 		console.log(checkPassword)
 
