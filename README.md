@@ -28,30 +28,6 @@ POST to /auth/market/registration
    password: string, required
  }
  ```
-
-```
-Update Plant Object for PUT requests to /plants/:id
-{ 
-user_id: required comes from params.id,
-nickname: required, unique,
-species: string, optional, defaults to ("Unknown")
-image: string, optional, defaults to (null),
-water: string, required format is "2021-01-28",
-H2OFrequency: string, required
-}
-```
-
-Plant object for POST requests to /users/:id/plants
-```
-{	id: integer, database generated
-	nickname: string, required, unique,
-	species: string, optional, defaults to ("Unknown")
-	H2OFrequency: string, required,
-	image: string, optional, defaults to (null),
-	user_id: requiered comes from params.id,
-	water: string, required format is "2021-01-28"
-}
-```
 	
 
 API Methods:
