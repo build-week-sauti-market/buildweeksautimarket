@@ -6,13 +6,16 @@ try{
 const token = req.headers.authorization
 console.log(token)
 if(!token) {
+  console.log("line 9")
     return res.status(401).json({
         message: "token required"
     })
 }
 //else verify the token is correct and that it has the write secret
 jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
+
     if(err) {
+      console.log("line 18")
         return res.status(401).json({
             message: "token invalid"
         })
