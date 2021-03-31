@@ -47,7 +47,7 @@ router.post("/login", async (req, res, next) => {
 			const token = jwt.sign({
 				subject: user.id,
 				user_name: user.user_name
-			}, "keep it secret keep it safe", {expiresIn: "1d"})
+			}, process.env.JWT_SECRET, {expiresIn: "1d"})
 			
 			res.cookie("token", token)
 
