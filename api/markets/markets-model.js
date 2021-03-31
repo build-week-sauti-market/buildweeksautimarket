@@ -20,7 +20,7 @@ function findById(id){
 	return db("product_info as p_i")
 		.join("products as p", "p.id","=", "p_i.product_id")
 		.join("sellers as s", "s.id", "=", "p_i.seller_id")
-		.where({ id })
+		.where("p_i.id",id)
 		.select("p.product_name", "p_i.seller_price", "p_i.qty", "p_i.description", "s.seller_name", "s.location")
 		
 
