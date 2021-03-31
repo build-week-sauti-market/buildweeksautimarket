@@ -12,6 +12,14 @@ router.get("/market", async (req, res, next) => {
 	}
 })
 
+// router.get("/market", async (req, res, next) => {
+// 	try {
+// 		const market = await Market.findBy()
+// 		res.status(200).json(market)
+// 	} catch (err) {
+// 		next(err)
+// 	}
+// })
 router.get("/market/:id", async (req, res, next) => {
 
 	try {
