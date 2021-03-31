@@ -5,6 +5,7 @@ exports.up = function(knex) {
       table.integer("category_id")
         .unsigned()
         .notNullable()
+        table.text("location")
         .references("id")
         .inTable("category")
   })
