@@ -21,7 +21,7 @@ server.use("/",welcomeRouter)
 // server.use('/api/users',usersRouter)
 
 server.use('/api/auth', authRouter)
-server.use('/api/auth', marketRouter)
+server.use('/api/auth',restric-middleware, marketRouter)
 server.get("/",(req, res) =>{
     res.json({api:"up"})
 })
