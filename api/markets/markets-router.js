@@ -15,6 +15,11 @@ router.get("/market", async (req, res, next) => {
 router.get("/market/:id", async (req, res, next) => {
 	try {
 		const item = await Market.findById(req.params.id)
+		if (!item){
+			return res.status(404).json({
+				message: "Item not found"
+			})
+		}
 		res.status(200).json(item)
 	} catch (err) {
 		next(err)
