@@ -4,6 +4,7 @@ module.exports =async (req, res, next) => {
 try{
 //if you recieve the token form client store it in headers
 const token = req.headers.authorization
+console.log(token)
 if(!token) {
     return res.status(401).json({
         message: "token required"
