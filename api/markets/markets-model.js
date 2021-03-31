@@ -17,7 +17,7 @@ function findBy(filter){
 
 function findById(id){
 	console.log(id)
-	return db("product_info as p_i,products as, sellers as s")
+	return db("product_info as p_i,products as p, sellers as s")
 		.join("products as p", "p.id", "p_i.product_id")
 		.join("sellers as s", "s.id", "p_i.seller_id")
 		.where({ id })
