@@ -2,6 +2,7 @@ const express = require("express")
 const cors = require("cors")
 const helmet = require("helmet")
 const cookieParser = require("cookie-parser")
+const restric_middleware = require("./middleware/restric-middleware")
 
 const welcomeRouter = require ("./welcome-router")
 // const usersRouter = require("./user/user-router")
@@ -21,7 +22,7 @@ server.use("/",welcomeRouter)
 // server.use('/api/users',usersRouter)
 
 server.use('/api/auth', authRouter)
-server.use('/api/auth',restric-middleware, marketRouter)
+server.use('/api/auth',restric_middleware, marketRouter)
 server.get("/",(req, res) =>{
     res.json({api:"up"})
 })
