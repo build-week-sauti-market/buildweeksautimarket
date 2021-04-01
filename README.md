@@ -37,10 +37,10 @@ API Methods:
 | Login		|POST	| api/auth/login|
 | Register	|POST	|api/auth/register|
 | logout urer |POST	|api/auth/:id	|
-|Get Market Info|GET   |api/auth/market	|
-|GET Market Info By Id	|GET  |api/auth/market/:id|
-|POST Market Info|POST 	|api/auth/market |
-|Updtade Market Info |PUT	|api/auth/market/:id|
-| Delete Market Info	|DELETE	|api/auth/market/:id|	
+|Get Market Info|GET   |api/market	|
+|GET Market Info By Id	|GET  |api/market/:id|
+|POST Market Info|POST 	|api/market |
+|Updtade Market Info |PUT	|api/market/:id|
+| Delete Market Info	|DELETE	|api/market/:id|	
 
 
