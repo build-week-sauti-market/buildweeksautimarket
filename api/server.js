@@ -22,7 +22,7 @@ server.use("/",welcomeRouter)
 // server.use('/api/users',usersRouter)
 
 server.use('/api/auth', authRouter)
-server.use('/api',restric_middleware, marketRouter)
+server.use('/api/items',restric_middleware, marketRouter)
 server.get("/",(req, res) =>{
     res.json({api:"up"})
 })

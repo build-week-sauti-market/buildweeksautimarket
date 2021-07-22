@@ -3,7 +3,7 @@ const router = express.Router()
 
 router.get("/", (req, res) => {
     res.json({
-        Message: "Welcome to sauti-market API Lambda Team# 86"
+        Message: "Welcome to Saudi Market "
     })
 })
 module.exports = router
