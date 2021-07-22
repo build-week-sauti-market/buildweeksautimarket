@@ -1,46 +1,63 @@
-# Backend buildweeksautimarket
-API URL: https://buildweeksautimarket.herokuapp.com/
+# back_end
+
+## HEROKU CLI commands
+heroku login
+heroku apps:create
+heroku addons:create
+heroku logs --tail -a <app_name>
+heroku run --app <app_name>
+
+### Endpoints:
+    http://localhost:5500 in development
+    http://localhost:5500/api/auth/register 
+    http://localhost:5500/api/auth/login
 
 
-Users object:
-```
-{	id: integer created by the database,
-	user_name: string, required,unique
-	password: string, required,max 18 characteres
-  
+### Endpoints (heroku):
+    Users
+    [POST] https://saudi-market-app.herokuapp.com/api/auth/register
+        returns user object
+    [POST] https://saudi-market-app.herokuapp.com/api/auth/login
+        returns token, user object
+
+    Items
+    [GET]   ALL ITEMS: https://saudi-market-app.herokuapp.com/api/items
+        returns array of all items
+    [GET]   ITEMS BY ID: https://saudi-market-app.herokuapp.com/api/items/:id
+        returns item object
+    [POST]  ITEM NEW ITEM: https://saudi-market-app.herokuapp.com/api/items
+        returns item object
+    [PUT]   UPDATE ITEM: https://saudi-market-app.herokuapp.com/api/items/:id
+        returns item object
+    [DELETE]DELETE ITEM: https://saudi-market-app.herokuapp.com/api/items/:id
+        returns delete message
+
+MY-LIST Endpoints
+
+
+### REGISTRATION:    
+    [POST]: /api/auth/register
+
+### LOGIN:
+    [POST]: /api/auth/login
+
+
+### Data Table Structures: 
+User Object
+{
+  id: integer
+  username: string
+  password: string 
+  email: string
+  isOwner: boolean
 }
-```
-```
-POST to /auth/market/registration
-{ username: string, required, unique,
-  password: string, required,
-  location: sting
- }
- 
- POST to /auth/market/login
- { username: string, required
-   password: string, required
- }
- 
-  
- POST to /auth/market/logout
- { username: string, required
-   password: string, required
- }
- ```
-	
-
-API Methods:
-
-| Action	| Method|	Route |
-|---------------|-------|-------------|
-| Login		|POST	| api/auth/login|
-| Register	|POST	|api/auth/register|
-| logout urer |POST	|api/auth/:id	|
-|Get Market Info|GET   |api/market	|
-|GET Market Info By Id	|GET  |api/market/:id|
-|POST Market Info|POST 	|api/market |
-|Updtade Market Info |PUT	|api/market/:id|
-| Delete Market Info	|DELETE	|api/market/:id|	
-
-
+Item Object
+{
+  id: integer
+  item_name: string
+  location: string
+  quantity: integer
+  price: float
+  description: string
+  user_id: integer // this references the id in the user table
+}
