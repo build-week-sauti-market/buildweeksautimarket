@@ -1,7 +1,7 @@
 const router = require("express").Router()
-const Market = require("./markets-model")
+const Market = require("./items-model")
 
-router.get("/market", async (req, res, next) => {
+router.get("/itemlist", async (req, res, next) => {
 	try {
 		const market = await Market.find()
 		res.status(200).json(market)
@@ -10,7 +10,7 @@ router.get("/market", async (req, res, next) => {
 	}
 })
 
-router.get("/market", async (req, res, next) => {
+router.get("/itemlist", async (req, res, next) => {
 	try {
 		const market = await Market.findBy()
 		res.status(200).json(market)
@@ -19,7 +19,7 @@ router.get("/market", async (req, res, next) => {
 	}
 })
 
-router.get("/market/:id", async (req, res, next) => {
+router.get("/itemlist/:id", async (req, res, next) => {
 
 	try {
 		const item = await Market.findById(req.params.id)
@@ -34,11 +34,11 @@ router.get("/market/:id", async (req, res, next) => {
 	}
 })
 
-router.post("/market", async (req, res, next) => { 
+router.post("/itemlist", async (req, res, next) => { 
 	try {
 		if (!req.body.product_name || !req.body.category_name || !req.body.seller_price || !req.body.qty || !req.body.description || !req.body.seller_name || !req.body.location){
 		return res.status(400).json({
-		message: "Missing requied filed"
+		message: "Missing required filed"
 		})
 		}
 		const newItem = await Market.add(req.body)
@@ -48,12 +48,12 @@ router.post("/market", async (req, res, next) => {
 	}
 })
 
-router.put("/market/:id", async (req, res, next) => {
+router.put("/itemlist/:id", async (req, res, next) => {
 	try {
 		const item = await Market.update(req.params.id, req.body)
 		if (!item){
 			return res.status(404).json({
-				message: "not found"
+				message: "item not found"
 			})
 		}
 		if (!req.body.product_name || !req.body.category_name || !req.body.seller_price || !req.body.qty || !req.body.description || !req.body.seller_name || !req.body.location){
@@ -67,7 +67,7 @@ router.put("/market/:id", async (req, res, next) => {
 	}
 })
 
-router.delete("/market/:id", async (req, res, next) => {
+router.delete("/itemlist/:id", async (req, res, next) => {
 	try {
 		const item = await Market.remove(req.params.id)
 		if (!item){
