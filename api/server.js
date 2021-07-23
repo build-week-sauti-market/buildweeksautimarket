@@ -9,7 +9,7 @@ const welcomeRouter = require ("./welcome-router")
 
 
 const authRouter = require("./auth/auth-router")
-const marketRouter = require("./markets/markets-router")
+const itemsRouter = require("./items/items-router")
 
 const server = express()
 
@@ -22,7 +22,7 @@ server.use("/",welcomeRouter)
 // server.use('/api/users',usersRouter)
 
 server.use('/api/auth', authRouter)
-server.use('/api/items',restric_middleware, marketRouter)
+server.use('/api/items',restric_middleware, itemsRouter)
 server.get("/",(req, res) =>{
     res.json({api:"up"})
 })
