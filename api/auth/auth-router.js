@@ -9,7 +9,7 @@ router.post("/register", async (req, res, next) => {
 
 		if(!username || !password || !email || !isOwner) {
 			return res.status(400).json({
-				message: "username, password, and email required"
+				message: "username, password, and email, member status required"
 			})
 		} else {
 			const  hashpass = await bcrypt.hash(password, 5)
