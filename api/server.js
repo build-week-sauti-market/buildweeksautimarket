@@ -16,9 +16,9 @@ server.use(cors())
 server.use(express.json())
 server.use(cookieParser())
 
-server.use("/",welcomeRouter)
+server.use("/", welcomeRouter)
 server.use('/api/auth', authRouter)
-server.use('/api/items',restricted, itemsRouter)
+server.use('/api/items',restricted , itemsRouter)
 
 
 server.get("/",(req, res) =>{
