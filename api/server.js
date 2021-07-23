@@ -2,7 +2,7 @@ const express = require("express")
 const cors = require("cors")
 const helmet = require("helmet")
 const cookieParser = require("cookie-parser")
-const restric_middleware = require("./middleware/restric-middleware")
+const restricted = require("./middleware/restricted")
 
 const welcomeRouter = require ("./welcome-router")
 // const usersRouter = require("./user/user-router")
@@ -22,7 +22,7 @@ server.use("/",welcomeRouter)
 // server.use('/api/users',usersRouter)
 
 server.use('/api/auth', authRouter)
-server.use('/api/items',restric_middleware, itemsRouter)
+server.use('/api/items',restricted, itemsRouter)
 server.get("/",(req, res) =>{
     res.json({api:"up"})
 })
